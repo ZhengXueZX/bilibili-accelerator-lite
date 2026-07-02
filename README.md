@@ -25,6 +25,22 @@ This is not a VPN, proxy, downloader, or access bypass tool. It only adjusts pla
 4. Open `https://www.bilibili.com` and test a video that usually buffers.
 5. Check DevTools Console for `[Bilibili Accelerator Lite]` logs.
 
+## Debugging
+
+Version `0.2.0` shows a small `BiliAccel rewrites/requests` badge in the lower-right corner on Bilibili pages.
+
+- `BiliAccel 0/0`: the script loaded, but no Bilibili playurl request has been seen yet.
+- `BiliAccel 0/2`: playurl requests were seen, but no URL was changed.
+- `BiliAccel 4/2`: playurl requests were seen and several media URL objects were changed.
+
+For full diagnostics, open DevTools Console and run:
+
+```js
+window.__BILIBILI_ACCELERATOR_LITE__.diagnostics()
+```
+
+You can also click the badge or use the Tampermonkey menu command `Bilibili Accelerator diagnostics`.
+
 ## Project Layout
 
 - `src/bilibili-accelerator.user.js`: source userscript.
