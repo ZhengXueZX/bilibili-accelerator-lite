@@ -5,7 +5,7 @@ A small Chrome/Tampermonkey userscript for improving slow Bilibili playback from
 ## Install
 
 1. Install Tampermonkey in Chrome.
-2. Open [outputs/bilibili-accelerator.user.js](C:/Users/10565/Documents/Codex/2026-07-01/b-b-claude-bilibili-accelerator-safari/outputs/bilibili-accelerator.user.js).
+2. Open `outputs/bilibili-accelerator.user.js`.
 3. Copy the file content into a new Tampermonkey script and save.
 4. Open `https://www.bilibili.com` and test a video that usually buffers.
 5. Check DevTools Console for `[Bilibili Accelerator Lite]` logs.
