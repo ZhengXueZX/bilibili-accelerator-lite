@@ -2,7 +2,7 @@
   "name": "bilibili-accelerator-lite",
   "version": "0.1.0",
   "private": true,
-  "description": "A conservative Tampermonkey userscript that reorders Bilibili playback CDN URLs.",
+  "description": "A conservative Chrome/Tampermonkey userscript that improves overseas Bilibili playback by preferring faster CDN candidates.",
   "type": "module",
   "scripts": {
     "check": "node --check src/bilibili-accelerator.user.js && node scripts/verify-version.mjs",

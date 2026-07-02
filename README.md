@@ -1,6 +1,21 @@
 # Bilibili Accelerator Lite
 
-A small Chrome/Tampermonkey userscript for improving slow Bilibili playback from overseas by reordering playback CDN URLs.
+Bilibili Accelerator Lite is a conservative Chrome/Tampermonkey userscript for overseas Bilibili viewers. It tries to reduce buffering on cold or poorly cached videos by intercepting Bilibili playback URL responses and preferring faster CDN candidates from the URLs Bilibili already returns.
+
+This is not a VPN, proxy, downloader, or access bypass tool. It only adjusts playback URL selection in the browser.
+
+## What It Helps With
+
+- Cold Bilibili videos that buffer or stall from overseas networks.
+- Playback responses that include multiple `baseUrl` / `backupUrl` CDN candidates.
+- Chrome users who want a lightweight, auditable userscript instead of a separate proxy app.
+
+## What It Does Not Do
+
+- It does not bypass member-only, login-only, copyright, or region restrictions.
+- It does not read account credentials or upload browsing data.
+- It does not download, cache, or redistribute video content.
+- It cannot fix every network path; if no usable CDN candidate exists, improvement may be limited.
 
 ## Install
 
