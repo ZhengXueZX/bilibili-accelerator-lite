@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Bilibili Accelerator Lite
 // @namespace    https://local.codex/bilibili-accelerator-lite
-// @version      0.2.0
-// @description  Reorders Bilibili video CDN URLs before playback and exposes diagnostics.
+// @version      0.2.1
+// @description  Reorders Bilibili video CDN URLs from playurl responses and page playinfo.
 // @author       Codex
 // @match        https://www.bilibili.com/*
 // @match        https://www.bilibili.tv/*
@@ -71,11 +71,12 @@
   ]);
 
   const state = {
-    version: '0.2.0',
+    version: '0.2.1',
     installedAt: new Date().toISOString(),
     fetchHooked: false,
     xhrHooked: false,
     playUrlRequests: 0,
+    playInfoAssignments: 0,
     mediaObjectsSeen: 0,
     rewrites: 0,
     skips: 0,
@@ -185,7 +186,8 @@
     if (!badge) return;
 
     const active = state.playUrlRequests > 0;
-    badge.textContent = `BiliAccel ${state.rewrites}/${state.playUrlRequests}`;
+    const sources = state.playUrlRequests + state.playInfoAssignments;
+    badge.textContent = `BiliAccel ${state.rewrites}/${sources}`;
     badge.style.background = active
       ? 'rgba(12,96,64,.9)'
       : 'rgba(20,20,24,.86)';
@@ -382,6 +384,43 @@
     return rewriteState.changed;
   }
 
+  function hookPlayInfoGlobal(name) {
+    let currentValue = pageWindow[name];
+
+    if (currentValue && typeof currentValue === 'object') {
+      state.playInfoAssignments += 1;
+      rewritePlayUrlPayload(currentValue);
+    }
+
+    try {
+      Object.defineProperty(pageWindow, name, {
+        configurable: true,
+        get() {
+          return currentValue;
+        },
+        set(value) {
+          currentValue = value;
+          state.playInfoAssignments += 1;
+          log(`${name} assigned`);
+
+          if (value && typeof value === 'object') {
+            try {
+              rewritePlayUrlPayload(value);
+            } catch (error) {
+              recordError(`${name} rewrite`, error);
+            }
+          }
+
+          updateBadge();
+        },
+      });
+
+      log(`${name} hook installed`);
+    } catch (error) {
+      recordError(`${name} hook`, error);
+    }
+  }
+
   function responseFromJson(originalResponse, data) {
     const headers = new Headers(originalResponse.headers);
     headers.delete('content-length');
@@ -475,6 +514,7 @@
 
   exposeDiagnostics();
   scheduleBadge();
+  hookPlayInfoGlobal('__playinfo__');
   hookFetch();
   hookXhr();
   updateBadge();

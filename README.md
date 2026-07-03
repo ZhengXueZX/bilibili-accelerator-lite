@@ -27,11 +27,11 @@ This is not a VPN, proxy, downloader, or access bypass tool. It only adjusts pla
 
 ## Debugging
 
-Version `0.2.0` shows a small `BiliAccel rewrites/requests` badge in the lower-right corner on Bilibili pages.
+Version `0.2.1` shows a small `BiliAccel rewrites/sources` badge in the lower-right corner on Bilibili pages.
 
-- `BiliAccel 0/0`: the script loaded, but no Bilibili playurl request has been seen yet.
-- `BiliAccel 0/2`: playurl requests were seen, but no URL was changed.
-- `BiliAccel 4/2`: playurl requests were seen and several media URL objects were changed.
+- `BiliAccel 0/0`: the script loaded, but no Bilibili playurl request or page playinfo assignment has been seen yet.
+- `BiliAccel 0/2`: playback sources were seen, but no URL was changed.
+- `BiliAccel 4/2`: playback sources were seen and several media URL objects were changed.
 
 For full diagnostics, open DevTools Console and run:
 

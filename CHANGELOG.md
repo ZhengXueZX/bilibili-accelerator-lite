@@ -2,6 +2,11 @@
 
 All notable changes to this project are tracked here.
 
+## [0.2.1] - 2026-07-02
+
+- Added `window.__playinfo__` interception for pages that embed playback data directly instead of requesting playurl via `fetch` or `XMLHttpRequest`.
+- Added `playInfoAssignments` diagnostics and included initial playinfo sources in the badge denominator.
+
 ## [0.2.0] - 2026-07-02
 
 - Added visible in-page diagnostics badge showing rewrite count and playurl request count.

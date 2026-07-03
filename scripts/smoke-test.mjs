@@ -87,4 +87,12 @@ assert.equal(
   'upos-sz-mirrorhw.bilivideo.com',
 );
 
+pageWindow.__playinfo__ = JSON.parse(JSON.stringify(samplePayload));
+const playInfoDiagnostics = pageWindow.__BILIBILI_ACCELERATOR_LITE__.diagnostics();
+assert.equal(playInfoDiagnostics.state.playInfoAssignments, 1);
+assert.equal(
+  new URL(pageWindow.__playinfo__.data.dash.video[0].baseUrl).hostname,
+  'upos-sz-mirrorali.bilivideo.com',
+);
+
 console.log('Smoke test passed.');
